@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 function LoginScreen() {
   const [mobile, setMobile] = useState('');
@@ -61,57 +62,88 @@ function LoginScreen() {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          maxWidth: '400px',
-          width: '100%',
-          padding: '20px',
-          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
-          borderRadius: '8px',
-          backgroundColor: 'white',
-        }}
-      >
-        <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>MEMBER LOGIN / SIGN UP</h2>
-        <div style={{ marginBottom: '20px' }}>
-          <input
+    <LoginContainer>
+      <LoginForm onSubmit={handleSubmit}>
+        <Title>MEMBER LOGIN / SIGN UP</Title>
+        <InputContainer>
+          <StyledInput
             type="text"
             placeholder="Phone"
             value={mobile}
             onChange={(e) => setMobile(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '10px',
-              border: '1px solid #ccc',
-              borderRadius: '30px',
-            }}
           />
-        </div>
+        </InputContainer>
         {isLoading ? (
-          <div style={{ textAlign: 'center' }}>
-            <span>Loading...</span>
-          </div>
+          <Loading>Loading...</Loading>
         ) : (
-          <button
-            type="submit"
-            style={{
-              width: '100%',
-              padding: '15px',
-              backgroundColor: 'black',
-              color: 'white',
-              border: 'none',
-              borderRadius: '30px',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-            }}
-          >
-            Submit
-          </button>
+          <StyledButton type="submit">Submit</StyledButton>
         )}
-      </form>
-    </div>
+      </LoginForm>
+    </LoginContainer>
   );
 }
 
 export default LoginScreen;
+
+const LoginContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url("https://thumbs.dreamstime.com/z/fast-car-road-motion-blur-background-d-rendering-304517282.jpg?ct=jpeg") 
+    no-repeat center center/cover;
+`;
+
+const LoginForm = styled.form`
+  max-width: 400px;
+  width: 100%;
+  padding: 200px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.9);
+   background: url("https://thumbs.dreamstime.com/z/fast-car-road-motion-blur-background-d-rendering-304517282.jpg?ct=jpeg") 
+    no-repeat center center/cover;
+`;
+
+const Title = styled.h2`
+  text-align: center;
+  margin-bottom: 20px;
+  color:white;
+  font-size: 1.5rem;
+`;
+
+const InputContainer = styled.div`
+  margin-bottom: 20px;
+`;
+
+const StyledInput = styled.input`
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  outline: none;
+  font-size: 1rem;
+`;
+
+const StyledButton = styled.button`
+  width: 100%;
+  padding: 15px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #333;
+  }
+`;
+
+const Loading = styled.div`
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+`;
